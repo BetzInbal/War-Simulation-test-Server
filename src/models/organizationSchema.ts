@@ -27,10 +27,7 @@ const resourceSchema = new Schema<IResource>({
   });
 
   export const organizationSchema = new Schema<IOrganization>({
-    name:{
-        type:String,
-        unique:true
-    },
+    name:String,
     resources:{
         type:[resourceSchema]
     },
