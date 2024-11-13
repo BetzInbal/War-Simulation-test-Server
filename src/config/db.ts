@@ -1,5 +1,4 @@
 import {connect} from 'mongoose'
-import 'dotenv/config'
 
 export const connectToMogo = async ( ) => {
 
