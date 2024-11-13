@@ -16,5 +16,14 @@
     "@types/mongoose": "^5.11.96",
     "cors": "^2.8.5",
     "nodemon": "^3.1.7"
-  }
+  },
+  "name": "back",
+  "version": "1.0.0",
+  "main": "dist/app.js",
+  "scripts": {
+    "dev": "nodemon dist/app"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
