@@ -4,7 +4,7 @@ import { typesMissiles } from "../types/enums"
 
 export interface IUser extends Document {
     username:string
-    password:string
+    hashedPassword:string
     organization:IOrganization
     launched:ILaunch[]
 
@@ -33,12 +33,14 @@ export const userSchema = new Schema<IUser>({
         type:String,
         unique:true
     },
-    password:{
+    hashedPassword:{
         type:String,
         required:true
     },
-    organization:[organizationSchema],
-    launched:[launchSchema]
+    organization:organizationSchema,
+    launched:{type:[launchSchema],
+        default:[]
+    }
 
 })
 
