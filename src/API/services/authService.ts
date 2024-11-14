@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt'
 import { Schema } from "mongoose";
 import { loginUserDTO, newUserDTO } from "../../types/DTOs/GeneralsDto";
 import { getOrg } from "../../data/dataUtils";
+import { typesMissiles } from "../../types/enums";
 
 export const createUser = async ({ username, password, organization }: newUserDTO) => {
     try {
@@ -14,6 +15,7 @@ export const createUser = async ({ username, password, organization }: newUserDT
             username,
             hashedPassword: hashed,
             organization: org
+
         });
         await newUser.save();
         return true

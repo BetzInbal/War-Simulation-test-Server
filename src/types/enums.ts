@@ -25,3 +25,12 @@ export enum organizationsNames {
     "Houthis" = "Houthis",
 
 }
+export enum Locations {
+
+    "North" = "IDF - North",
+    "South" = "IDF - South",
+    "Center" = "IDF - Center",
+    "West Bank" = "IDF - West Bank",
+
+
+}

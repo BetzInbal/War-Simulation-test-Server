@@ -2,14 +2,14 @@ import { Schema, Types, Document, model } from "mongoose"
 import { typesMissiles } from "../types/enums"
 
 export interface IOrganization extends Document {
-    name:string
-    resources:IResource[]
+    name:string,
+    resources:IResource[],
     budget:number
 
 }
 
 interface IResource extends Document {
-    name:typesMissiles
+    name:typesMissiles,
     amount:number
 }
 
