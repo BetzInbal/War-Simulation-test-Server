@@ -1,4 +1,4 @@
-import { ILaunch } from "../models/userSchema"
+
 import { Locations, organizationsNames, typesMissiles } from "../types/enums"
 
 export interface IsocketId {
@@ -19,7 +19,5 @@ export interface IThreatDTO extends ILaunchDTO {
 }
 
 
-export interface ILocalThreat extends IThreatDTO {
-    typeObj:ILaunch
-}
+
 
