@@ -28,6 +28,8 @@ app.use('/api/auth', authController)
 
 
 
+
+
 io.on('connection', (socket) => {
     socket.on("userId",(ui)=>{
         hendelSocketConnetion(socket, ui)
@@ -38,8 +40,13 @@ io.on('connection', (socket) => {
 io.on('joinRoom', hendelSocketjoinRoom)
 io.on('launch', hendelSocketjoinRoom)
 
+export const sendEmit=(socket:Socket,eventName:string,data?:any)=>{
+    socket.emit(eventName,data)
+}
 
-
+export const sendToRoom=(roomName:string,eventName:string,data?:any)=>{
+    io.to(roomName).emit(eventName, data)
+}
 httpserver.listen(PORT, () => {
     console.log(`server $ socket run visit http://localhost:${PORT}`)
 });
