@@ -1,22 +1,25 @@
 import { Socket } from "socket.io";
 import { io } from "../app";
-import { IjoinRoomData } from "./eventsTypes";
+import { IjoinRoomData, ILaunchDTO } from "./eventsTypes";
 import { organizationsNames } from "../types/enums";
 
-const socketsList:Socket[] = []
+export const sockets: any = undefined
 //const socketsList:Socket[] = import socketsList from "../app" 
-export  const  hendelSocketConnetion = (client:Socket)=>{
-        console.log(`[socket.io]  new connection ${client.id} `);
-        socketsList.push(client)        
+export const hendelSocketConnetion = (client: Socket, userId: string) => {
+    console.log(`[socket.io]  new connection ${client.id} `);
+    sockets.userId = client
 }
 
-export  const  hendelSocketjoinRoom = ({organizationName, socketId}:IjoinRoomData) =>{
-    const socket = socketsList.find((s)=>s.id==socketId)
-    if(!socket)throw new Error("socken not found")
-        socket.join(organizationName)
+export const hendelSocketjoinRoom = ({ organizationName, userId }: IjoinRoomData) => {
+    const socket = sockets.socketId
+    if (!socket) throw new Error("socken not found")
+    socket.join(organizationsNames[organizationName])
+    console.log(`[socket.io]  new new room `);
+}
 
-    console.log(`[socket.io]  new new vote `);
-    }
-    
+
+
+
+
 
 
