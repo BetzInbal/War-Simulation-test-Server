@@ -6,26 +6,25 @@ export interface IUser extends Document {
     username:string
     hashedPassword:string
     organization:IOrganization
-    launched:ILaunch[]
 
 }
 
-export interface ILaunch extends Document {
-    type:typesMissiles
-    status:string
-}
+// export interface ILaunch extends Document {
+//     type:typesMissiles
+//     status:string
+// }
 
-const launchSchema = new Schema<ILaunch>({
-    type:{
-      type:String,
-      enum:typesMissiles,
-      required:true
-    },
-    status:{
-        type:String,
-        required:true
-      }
-  });
+// const launchSchema = new Schema<ILaunch>({
+//     type:{
+//       type:String,
+//       enum:typesMissiles,
+//       required:true
+//     },
+//     status:{
+//         type:String,
+//         required:true
+//       }
+//   });
 
 
 export const userSchema = new Schema<IUser>({
@@ -37,11 +36,7 @@ export const userSchema = new Schema<IUser>({
         type:String,
         required:true
     },
-    organization:organizationSchema,
-    launched:{type:[launchSchema],
-        default:[]
-    }
-
+    organization:organizationSchema
 })
 
 export default model<IUser>('User', userSchema)

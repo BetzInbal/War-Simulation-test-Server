@@ -20,3 +20,22 @@ export const getTimeMissiles = (type:typesMissiles)=>{
         throw new Error("missile dos`not found")
     }
 }
+
+export const getInfoMissiles = (type:typesMissiles)=>{
+    try {
+        return  missiles.filter((o)=> o.name==type)[0]
+        
+    } catch (error) {
+        throw new Error("missile dos`not found")
+    }
+}
+
+
+export const getInterceptsMissiles = (type:typesMissiles)=>{
+    try {
+        return  missiles.filter((m)=> m.intercepts.includes(type))
+        
+    } catch (error) {
+        throw new Error("missile dos`not found")
+    }
+}
