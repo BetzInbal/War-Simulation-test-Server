@@ -6,7 +6,7 @@ export interface ILaunch extends Document {
     status: string
     launcherId: string
     location: string
-    created_at: string
+    created_at: number
     
 }
 
@@ -29,7 +29,7 @@ const launchSchema = new Schema<ILaunch>({
         enum: Locations,
         required: true
     },
-    created_at: String
+    created_at: Number
 
 });
 
