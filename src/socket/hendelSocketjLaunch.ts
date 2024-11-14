@@ -43,7 +43,7 @@ export const hendelSocketjLaunch = async ({ location, type, userId }: ILaunchDTO
         const socket = sockets.userId
         sendEmit(socket,"missile-launch",type)
         const sped = getTimeMissiles(type)
-
+        sendEmit(socket,"updateArry",getLaunchThreth(launcher.id))
         const launch = await updateArryLaunches({ location, type, userId} )
         const interval = setInterval(() => {
             const timeLeft = sped -( Date.now() - launch.created_at)
@@ -63,12 +63,6 @@ export const hendelSocketjLaunch = async ({ location, type, userId }: ILaunchDTO
         timeout:endingTime})
         
         //להתחיל ספירה לאחור
-
-    
-
-
-
-
     /*
     אם בוצע שיגור מירט ע"י משתמש
     יש לעדכן אצל המשגר 
@@ -99,7 +93,7 @@ const updateArryLaunches =async ({ location, type, userId }: ILaunchDTO)=>{
             status:"Launched"
         })
         await launch.save()
-        sendToRoom(location,"updateArry",{})
+        sendToRoom(location,"updateArry",getLaunchesIDF(location))
         return launch
         //sendToRoom(location,"threat-launch",{})
 
@@ -110,4 +104,14 @@ const updateArryLaunches =async ({ location, type, userId }: ILaunchDTO)=>{
         throw new Error("err");
         
     }
+
+
+
+}
+export const getLaunchThreth =(launcherId:string)=>{
+    return launchSchema.find({launcherId:launcherId})
+}
+
+export const getLaunchesIDF =(location:string)=>{
+    return launchSchema.find({location:location})
 }

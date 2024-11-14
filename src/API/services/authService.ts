@@ -54,13 +54,12 @@ export const userLogin = async ({ username, password }: loginUserDTO) => {
     }
 };
 
-/*
-  export const getUserService = async (userId:string ) => {
+
+  export const getUserService = async (user_id:string ) => {
     try {
-        const user = await Users.findOne({_id:userId}).lean()
+        const user = await Users.findOne({_id:user_id}).lean()
         if (!user) throw new Error('user not found')
-        
-        return Users
+        return user
     } catch (err) {
       console.log(
         "Error accured while creating initial state of userSchema",
@@ -69,4 +68,4 @@ export const userLogin = async ({ username, password }: loginUserDTO) => {
       return err
     }
   };
-  */
+  

@@ -1,15 +1,11 @@
 import { request, response, Router } from "express";
-import { login, register} from "../routes/authRouter";
 import verifyUser from "../middlewares/verifyToken";
+import { getArry } from "../routes/launchesRouter";
 
 
 const router = Router()
 
-router.post('/login', login )
-
-router.post('/register', register)
-
-router.get('/', verifyUser,register)
+router.get('/', verifyUser,getArry)
 
 
 

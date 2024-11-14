@@ -27,6 +27,18 @@ export const login = async (req: Request<{}, {}, loginUserDTO>, res: Response) =
 
 }
 
+export const getUser = async (req: any, res: Response) => {
+    try {
+        const result = await userLogin(req.body)
+        res.json(result).status(200)
+
+    } catch (error) {
+        //console.log(error);
+        res.status(400).json(error);
+    }
+
+}
+
 /*
 export const getUser = async (req:ReqWithBody, res:Response)=> {
 try {        

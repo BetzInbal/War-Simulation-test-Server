@@ -5,7 +5,7 @@ import { getInfoMissiles, getInterceptsMissiles } from "../data/dataUtils";
 import { sockets } from "./io";
 import { sendEmit, sendToRoom } from "../app";
 import { typesMissiles } from "../types/enums";
-import { setim } from "./hendelSocketjLaunch";
+import { getLaunchesIDF, getLaunchThreth, setim } from "./hendelSocketjLaunch";
 
 
 export const hendelInterceptorLaunch = async (
@@ -30,6 +30,9 @@ export const hendelInterceptorLaunch = async (
         const timing = setim.find((s)=>s.id == launch.id)
         clearInterval(timing?.interval)
         clearTimeout(timing?.timeout)
+        sendToRoom(launch.location,"updateArry",getLaunchesIDF(launch.location))
+        sendEmit(socket,"updateArry",getLaunchThreth(launch.launcherId))
+
 
     } catch (error) {
         console.log(error);

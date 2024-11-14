@@ -8,6 +8,7 @@ export interface IOrganization extends Document {
 
 }
 
+
 export interface IResource extends Document {
     name:typesMissiles,
     amount:number

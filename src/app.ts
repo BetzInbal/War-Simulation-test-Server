@@ -6,6 +6,7 @@ import authController from "./API/controllers/authController";
 import http from 'http'
 import { Server, Socket, } from 'socket.io'
 import { hendelSocketConnetion, hendelSocketjoinRoom } from './socket/io'
+import launchesController from "./API/controllers/launchesController";
 
 const PORT = process.env.PORT || 3000
 
@@ -25,6 +26,7 @@ app.use(express.json())
 
 
 app.use('/api/auth', authController)
+app.use('/api/launches', launchesController)
 
 
 

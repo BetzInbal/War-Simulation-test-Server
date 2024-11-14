@@ -6,7 +6,6 @@ export interface IUser extends Document {
     username:string
     hashedPassword:string
     organization:IOrganization
-
 }
 
 // export interface ILaunch extends Document {
