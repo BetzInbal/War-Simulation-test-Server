@@ -13,7 +13,7 @@ export const hendelSocketConnetion = (client: Socket, userId: string) => {
 export const hendelSocketjoinRoom = ({ organizationName, userId }: IjoinRoomData) => {
     const socket = sockets[userId]
     if (!socket) throw new Error("socken not found")
-    socket.join(organizationsNames[organizationName])
+    socket.join(organizationsNames[organizationName].slice(6))
     console.log(`[socket.io]  new new room `);
 }
 

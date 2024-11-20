@@ -13,7 +13,7 @@ import launchSchema from "../../models/launchSchema";
         const user = await Users.findOne({_id:user_id}).lean()
         if (!user) throw new Error('user not found')
             
-        return await user.organization.name.includes("IDF")? 
+        return user.organization.name.includes("IDF")? 
         getLaunchesIDF(user.organization.name.slice(6))
         :getLaunchThreth(user.id)
     } catch (err) {

@@ -1,12 +1,14 @@
 import { connectToMogo } from "./config/db";
 import 'dotenv/config'
-import express from 'express'
+import express, { json } from 'express'
 import cors from "cors"
 import authController from "./API/controllers/authController";
 import http from 'http'
 import { Server, Socket, } from 'socket.io'
 import { hendelSocketConnetion, hendelSocketjoinRoom } from './socket/io'
 import launchesController from "./API/controllers/launchesController";
+import { hendelInterceptorLaunch } from "./socket/hendelInterceptorLaunch";
+import { hendelSocketjLaunch } from "./socket/hendelSocketjLaunch";
 
 const PORT = process.env.PORT || 3000
 
@@ -20,6 +22,7 @@ export const io = new Server(httpserver, {
 })
 
 
+
 connectToMogo()
 app.use(cors())
 app.use(express.json())
@@ -29,18 +32,15 @@ app.use('/api/auth', authController)
 app.use('/api/launches', launchesController)
 
 
-
-
-
 io.on('connection', (socket) => {
     socket.on("userId",(ui)=>{
         hendelSocketConnetion(socket, ui)
     })
-    
     socket.emit("yoursId", socket.id)
 })
 io.on('joinRoom', hendelSocketjoinRoom)
-io.on('launch', hendelSocketjoinRoom)
+io.on('launch', hendelSocketjLaunch)
+io.on('intercept', hendelInterceptorLaunch)
 
 export const sendEmit=(socket:Socket,eventName:string,data?:any)=>{
     socket.emit(eventName,data)

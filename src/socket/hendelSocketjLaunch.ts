@@ -5,6 +5,7 @@ import { getTimeMissiles } from "../data/dataUtils";
 import Users, { IUser } from "../models/userSchema";
 import launchSchema, { ILaunch } from "../models/launchSchema";
 import { sendEmit, sendToRoom } from "../app";
+import { getLaunchesService } from "../API/services/launchesService";
 
 
 
@@ -43,19 +44,23 @@ export const hendelSocketjLaunch = async ({ location, type, userId }: ILaunchDTO
         const socket = sockets.userId
         sendEmit(socket,"missile-launch",type)
         const sped = getTimeMissiles(type)
-        sendEmit(socket,"updateArry",getLaunchThreth(launcher.id))
+        sendEmit(socket,"updateArry",await getLaunchThreth(launcher.id))
         const launch = await updateArryLaunches({ location, type, userId} )
+        
+        
         const interval = setInterval(() => {
             const timeLeft = sped -( Date.now() - launch.created_at)
             sendEmit(socket,"countdown",{timeLeft, launch:launch.id})
             sendToRoom(location,"countdown",{timeLeft, launch:launch.id})
         }, 1000)
-        const endingTime = setTimeout(() => {
+        
+        
+        const endingTime = setTimeout(async () => {
             clearInterval(interval)
             launch.status="Hit"
             launch.save()
-            sendToRoom(location,"updateArry",)
-            sendEmit(socket,"updateArry")
+            sendToRoom(location,"updateArry",await getLaunchesIDF(location))
+            sendEmit(socket,"updateArry",await getLaunchThreth(launcher.id))
         },sped*1000);
     
         setim.push({id:launch.id,
@@ -93,7 +98,7 @@ const updateArryLaunches =async ({ location, type, userId }: ILaunchDTO)=>{
             status:"Launched"
         })
         await launch.save()
-        sendToRoom(location,"updateArry",getLaunchesIDF(location))
+        sendToRoom(location,"updateArry",await getLaunchesIDF(location))
         return launch
         //sendToRoom(location,"threat-launch",{})
 
@@ -108,10 +113,10 @@ const updateArryLaunches =async ({ location, type, userId }: ILaunchDTO)=>{
 
 
 }
-export const getLaunchThreth =(launcherId:string)=>{
-    return launchSchema.find({launcherId:launcherId})
+export const getLaunchThreth =async(launcherId:string)=>{
+    return await launchSchema.find({launcherId:launcherId})
 }
 
-export const getLaunchesIDF =(location:string)=>{
-    return launchSchema.find({location:location})
+export const getLaunchesIDF = async(location:string)=>{
+    return await launchSchema.find({location:location})
 }
